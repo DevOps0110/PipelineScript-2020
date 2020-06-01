@@ -25,12 +25,12 @@ node
 		def mvnHome = tool 'mvn'
 		sh "${mvnHome}/bin/mvn -B verify"
     }
-    stage('Sonar Analysis') 
+   stage('Sonar Analysis') 
 	{
 		withSonarQubeEnv('sonar') 
 		{
 		    def mvn = tool 'mvn'
-			sh 'mvn clean wro4j:run package liquibase:update sonar:sonar'
+			sh 'mvn clean package sonar:sonar'
 			sh 'sleep 10'
 		} // SonarQube taskId is automatically attached to the pipeline context
 	}
