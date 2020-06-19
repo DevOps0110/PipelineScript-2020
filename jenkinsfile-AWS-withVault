@@ -22,10 +22,11 @@ node
     
      stage('Build Stage')
     {
- 	   withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-petclinic', vaultUrl: 'https://vault-ssl-1555214667.us-west-2.elb.amazonaws.com:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'ABC', vaultKey: 'b.url'], [envVar: 'xyz', vaultKey: 'b.username']]]]) {
-	   def mvnHome = tool 'mvn'
-	   sh "${mvnHome}/bin/mvn -B verify"
-	   sh '-Dmyvar=$ABC -Dmyuser=$XYZmvn clean package '
+ 	   withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-petclinic', vaultUrl: 'https://vault-ssl-1555214667.us-west-2.elb.amazonaws.com:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'ABC', vaultKey: 'b.url'], [envVar: 'xyz', vaultKey: 'b.username']]]])
+	   {	def mvnHome = tool 'mvn'
+	   	sh "${mvnHome}/bin/mvn -B verify"
+	   	sh '-Dmyvar=$ABC -Dmyuser=$XYZmvn clean package '
+	   }
 	}
     
     
