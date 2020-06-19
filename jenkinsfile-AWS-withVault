@@ -20,6 +20,11 @@ node
 	//	sh "${mvnHome}/bin/mvn -B verify"
     }
     
+    stage('Vault') {
+    withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault-petclinic', vaultUrl: 'https://vault-ssl-1555214667.us-west-2.elb.amazonaws.com:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'b.url'], [envVar: 'xyz', vaultKey: 'b.username']]]]) {
+	sh 'echo $ABC'
+	}}
+	
      stage('Build Stage')
     {
     withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault-petclinic', vaultUrl: 'https://vault-ssl-1555214667.us-west-2.elb.amazonaws.com:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'ABC', vaultKey: 'b.url'], [envVar: 'XYZ', vaultKey: 'b.username'], [envVar: 'my_pass', vaultKey: 'password']]]])
