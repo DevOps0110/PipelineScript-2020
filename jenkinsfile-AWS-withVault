@@ -22,15 +22,15 @@ node
     
     stage('Vault') {
     withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://vault-ssl-1555214667.us-west-2.elb.amazonaws.com:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'b.url'], [envVar: 'xyz', vaultKey: 'b.username']]]]) {
-	sh 'echo $ABC'
+	sh 'echo $abc'
 	}}
 	
      stage('Build Stage')
     {
     withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://vault-ssl-1555214667.us-west-2.elb.amazonaws.com:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'ABC', vaultKey: 'b.url'], [envVar: 'XYZ', vaultKey: 'b.username'], [envVar: 'my_pass', vaultKey: 'password']]]])
     	   {	
-	   sh 'echo $ABC'
-	   sh 'echo $XYZ'
+	   sh 'echo $abc'
+	   sh 'echo $xyz'
 	   sh 'echo $my_password'
 	   def mvnHome = tool 'mvn'
 	   sh "${mvnHome}/bin/mvn -B verify"
