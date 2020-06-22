@@ -34,7 +34,7 @@ node
 	   sh 'echo $my_password'
 	   def mvnHome = tool 'mvn'
 	   sh "${mvnHome}/bin/mvn -B verify"
-	   sh '-Dmyvar=$ABC -Dmyuser=$xyz mvn clean package '
+	   sh '-Dmyvar=$abc -Dmyuser=$xyz mvn clean package '
 	   }
 	}    
     
