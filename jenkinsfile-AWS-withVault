@@ -26,7 +26,7 @@ node
     	   {
 	   def mvnHome = tool 'mvn'
 	   sh "${mvnHome}/bin/mvn -B verify"
-	   //sh '-Dabc=$abc -Dxyz=$xyz -Djdbc_password=$jdbc_password mvn clean package'
+	   sh '-Dabc="${abc}" -Dxyz="${xyz}" -Djdbc_password="${jdbc_password}" mvn clean package'
 	   }
 	}    
     
