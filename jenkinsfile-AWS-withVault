@@ -24,6 +24,7 @@ node
     {
     withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://10.0.1.232:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
     	   {
+	   sh 'echo $abc > /home/ec2-user/test.txt'
 	   def mvnHome = tool 'mvn'
 	   sh "${mvnHome}/bin/mvn -B verify"
 	   sh '-Dabc="${abc}" -Dxyz="${xyz}" -Djdbc_password="${jdbc_password}" mvn clean package'
