@@ -21,9 +21,8 @@ node
 
     stage('Build Stage')
     {
-        def vaultPrivateIP = readFile '/home/ec2-user/vault-private-ip.txt'
-        vaultPrivateIP = vaultPrivateIP.trim()
-        echo "Vault URL: ${vaultPrivateIP}aaa"
+        def vaultPrivateIP = (readFile '/home/ec2-user/vault-private-ip.txt').trim()
+        echo "Vault Private IP: ${vaultPrivateIP}"
         withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: "https://${vaultPrivateIP}:8200"], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
            {
             def mvnHome = tool 'mvn'
@@ -33,7 +32,7 @@ node
 
     stage('Sonar Analysis')
     {
-        def vaultPrivateIP = readFile '/home/ec2-user/vault-private-ip.txt'
+        def vaultPrivateIP = (readFile '/home/ec2-user/vault-private-ip.txt').trim()
         withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://${vaultPrivateIP}:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
            {
             withSonarQubeEnv('sonar')
