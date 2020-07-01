@@ -22,7 +22,8 @@ node
 	
      stage('Build Stage')
     {
-     def vaultPrivateIp = cat vaultPrivateIp.txt
+     value=`cat /home/ec2-user/vault-private-ip.txt`
+     echo "jdk installation path is: ${value}"
      withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://${vaultPrivateIp}:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
     	   {
 	   def mvnHome = tool 'mvn'
@@ -68,8 +69,7 @@ node
             rundeckInstance: "Rundeck", 
             shouldFailTheBuild: true, 
             shouldWaitForRundeckJob: true, 
-            tailLog: true]) 
-
+            tailLog: true])
 	}
 	
 	stage('Selenium Testing')
