@@ -22,7 +22,7 @@ node
 	
      stage('Build Stage')
     {
-     def vault-private-ip = cat vault-private-ip.txt
+     vault-private-ip = cat vault-private-ip.txt
      withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://${vault-private-ip}:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
     	   {
 	   def mvnHome = tool 'mvn'
