@@ -22,7 +22,7 @@ node
 	
      stage('Build Stage')
     {
-     withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://10.0.1.17:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
+     withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://$(VAULT_PRIVATE_IP):8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
     	   {
 	   def mvnHome = tool 'mvn'
 	   sh "${mvnHome}/bin/mvn -B verify"
