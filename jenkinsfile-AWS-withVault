@@ -35,7 +35,7 @@ node
     {
         def vaultPrivateIP = readFile '/home/ec2-user/vaultPrivateIP.txt'
         vaultPrivateIP = vaultPrivateIP.trim()
-        withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: 'https://${vaultPrivateIP}:8200'], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
+        withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: "https://${vaultPrivateIP}:8200"], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
            {
             withSonarQubeEnv('sonar')
         {
