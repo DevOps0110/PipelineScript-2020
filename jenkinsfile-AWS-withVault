@@ -2,7 +2,7 @@ node
 {
     stage('GitSCM')
     {
-        git branch: 'test', url: 'https://github.com/DevOps0110/petclinic-liquibase.git'
+        git url: 'https://github.com/DevOps0110/aws-vault-petclinic-liquibase.git'
     }
 
     stage('Initialize')
