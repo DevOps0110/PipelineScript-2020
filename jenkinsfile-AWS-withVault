@@ -24,7 +24,7 @@ node
         def vaultPrivateIP = readFile '/home/ec2-user/vault-private-ip.txt'
         vaultPrivateIP = vaultPrivateIP.trim()
         echo "Vault Private IP: ${vaultPrivateIP}"
-        withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: "https://${vaultPrivateIP}:8200"], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
+        withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: "https://${vaultPrivateIP}:8200"], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'mysql_url', vaultKey: 'jdbc_url'], [envVar: 'mysql_user', vaultKey: 'jdbc_user'], [envVar: 'mysql_pass', vaultKey: 'jdbc_pass']]]])
            {
             def mvnHome = tool 'mvn'
             sh "${mvnHome}/bin/mvn -B verify"
@@ -35,7 +35,7 @@ node
     {
         def vaultPrivateIP = readFile '/home/ec2-user/vault-private-ip.txt'
         vaultPrivateIP = vaultPrivateIP.trim()
-        withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: "https://${vaultPrivateIP}:8200"], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'abc', vaultKey: 'jdbc_url'], [envVar: 'xyz', vaultKey: 'jdbc_user'], [envVar: 'jdbc_password', vaultKey: 'jdbc_pass']]]])
+        withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: "https://${vaultPrivateIP}:8200"], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'mysql_url', vaultKey: 'jdbc_url'], [envVar: 'mysql_user', vaultKey: 'jdbc_user'], [envVar: 'mysql_pass', vaultKey: 'jdbc_pass']]]])
            {
             withSonarQubeEnv('sonar')
         {
