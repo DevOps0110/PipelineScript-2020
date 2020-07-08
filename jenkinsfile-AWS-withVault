@@ -77,11 +77,14 @@ node
     {
         git url: 'https://github.com/DevOps0110/aws-vault-petclinic-liquibase.git'
         sh 'cd /root/.jenkins/workspace/Petclinic-liquibase-vault/TestCases'
-        wrap([$class: 'Xvfb', displayNameOffset: 0, installationName: 'Xvfb', screen: '1600x1200x32'])
+        withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: 'vault', vaultUrl: "https://${vaultPrivateIP}:8200"], vaultSecrets: [[path: 'secret/database', secretValues: [[envVar: 'mysql_url', vaultKey: 'jdbc_url'], [envVar: 'mysql_user', vaultKey: 'jdbc_user'], [envVar: 'mysql_pass', vaultKey: 'jdbc_pass']]]])
         {
-            sh 'sudo bash'
-            sh 'mvn test'
-        }
+            wrap([$class: 'Xvfb', displayNameOffset: 0, installationName: 'Xvfb', screen: '1600x1200x32'])
+            {
+                sh 'sudo bash'
+                sh 'mvn test'
+            }
+         }
     }
 
     stage('Performance testing')
