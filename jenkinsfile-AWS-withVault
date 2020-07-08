@@ -75,8 +75,8 @@ node
 
     stage('Selenium Testing')
     {
-        git url: 'https://github.com/DevOps0110/petclinic-liquibase.git'
-        sh 'cd /root/.jenkins/workspace/Petclinic-liquibase/TestCases'
+        git url: 'https://github.com/DevOps0110/aws-vault-petclinic-liquibase.git'
+        sh 'cd /root/.jenkins/workspace/Petclinic-liquibase-vault/TestCases'
         wrap([$class: 'Xvfb', displayNameOffset: 0, installationName: 'Xvfb', screen: '1600x1200x32'])
         {
             sh 'sudo bash'
